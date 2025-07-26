@@ -1,8 +1,7 @@
 // components/ProtectedRoute.jsx
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import API from '../api'; // ✅ this is correct
-// centralized axios instance
+import API from '../../api'; 
 
 export default function ProtectedRoute({ children }) {
   const [auth, setAuth] = useState(null); // null = loading, false = not logged in
