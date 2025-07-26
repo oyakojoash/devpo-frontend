@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './Login.css';
 import { useNavigate, Link } from 'react-router-dom';
-import API from '../api'; // ✅ import centralized backend URL
+import API from '../../api';
+// ✅ import centralized backend URL
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(true);

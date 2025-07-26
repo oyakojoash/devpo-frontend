@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Account.css';
 import { useNavigate } from 'react-router-dom';
-import API from '../api'; // ✅ add this line to import the base URL
+import API from '../../api';
+ // ✅ add this line to import the base URL
 
 export default function Account() {
   const [user, setUser] = useState(null);

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import API from '../api'; // ✅ use env-based API URL
+import API from '../../api';
+ // ✅ use env-based API URL
 
 export default function ForgotPassword() {
   const [step, setStep] = useState(1);
