@@ -2,10 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import Product from '../../components/product/product';
 import './ProductsPage.css';
 import { CartContext } from '../../context/CartContext';
+import API from '../../api'; // ✅ Use centralized API
 
 export default function ProductsPage({ searchTerm }) {
   const PRODUCTS_PER_PAGE = 20;
-  const { addToCart } = useContext(CartContext); // ✅ use context instead of props
+  const { addToCart } = useContext(CartContext);
 
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,21 +23,19 @@ export default function ProductsPage({ searchTerm }) {
 
       try {
         const res = await fetch(
-          `http://localhost:5000/api/products?search=${encodeURIComponent(
-            searchTerm
-          )}&page=${currentPage}&limit=${PRODUCTS_PER_PAGE}`,
+          `${API}/api/products?search=${encodeURIComponent(searchTerm)}&page=${currentPage}&limit=${PRODUCTS_PER_PAGE}`,
           { signal: controller.signal }
         );
 
-        if (!res.ok) throw new Error('Server error');
+        if (!res.ok) throw new Error('Server error while fetching products');
         const data = await res.json();
 
         setProducts(data.products || []);
         setTotalPages(data.totalPages || 1);
       } catch (err) {
         if (err.name !== 'AbortError') {
-          console.error('Error fetching products:', err);
-          setError('⚠️ Failed to load products. Please try again.');
+          console.error('Fetch error:', err);
+          setError('⚠️ Failed to load products. Please try again later.');
         }
       } finally {
         setLoading(false);
@@ -44,7 +43,6 @@ export default function ProductsPage({ searchTerm }) {
     };
 
     fetchProducts();
-
     return () => controller.abort();
   }, [searchTerm, currentPage]);
 
@@ -54,7 +52,7 @@ export default function ProductsPage({ searchTerm }) {
 
   return (
     <div className="products-page">
-      {loading && <p>⏳ Loading products...</p>}
+      {loading && <p className="loading-message">⏳ Loading products...</p>}
       {error && <p className="error-message">{error}</p>}
 
       {!loading && !error && products.length === 0 && (
@@ -67,15 +65,11 @@ export default function ProductsPage({ searchTerm }) {
           .map((product) => (
             <Product
               key={product._id}
+              _id={product._id}
               name={product.name}
               price={product.price}
-              image={
-                product.image
-                  ? `http://localhost:5000/images/${product.image}`
-                  : 'http://localhost:5000/images/fallback-product.jpeg'
-              }
+              image={product.image}
               vendorId={product.vendorId}
-              onAddToCart={() => addToCart(product)} // ✅ now safe
             />
           ))}
       </div>

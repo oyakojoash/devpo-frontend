@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Product from '../../components/product/product'
+import Product from '../../components/product/product';
 import './VendorPage.css';
+import API from '../../api'; // ✅ Use centralized base URL
 
 export default function VendorPage() {
   const { vendorId } = useParams();
@@ -13,7 +14,7 @@ export default function VendorPage() {
   useEffect(() => {
     async function fetchVendor() {
       try {
-        const res = await fetch(`http://localhost:5000/api/vendors/${vendorId}`);
+        const res = await fetch(`${API}/api/vendors/${vendorId}`);
         if (!res.ok) throw new Error('Vendor not found');
         const data = await res.json();
         setVendor(data);
@@ -28,7 +29,7 @@ export default function VendorPage() {
   useEffect(() => {
     async function fetchVendorProducts() {
       try {
-        const res = await fetch(`http://localhost:5000/api/vendors/${vendorId}/products`);
+        const res = await fetch(`${API}/api/vendors/${vendorId}/products`);
         if (!res.ok) throw new Error('Could not load vendor products');
         const data = await res.json();
         setVendorProducts(data);
@@ -49,12 +50,12 @@ export default function VendorPage() {
     <div>
       <div className="vendor-header">
         <img
-          src={`http://localhost:5000/images/${vendor.logo}`} // ✅ FIXED
+          src={`${API}/images/vendors/${vendor.logo}`}
           alt={vendor.name}
           className="vendor-banner-logo"
           onError={(e) => {
             e.target.onerror = null;
-            e.target.src = 'http://localhost:5000/images/fallback-logo.png';
+            e.target.src = `${API}/images/fallback-logo.png`;
           }}
         />
         <h2>{vendor.name}</h2>
@@ -68,12 +69,11 @@ export default function VendorPage() {
           vendorProducts.map(product => (
             <Product
               key={product._id}
-              id={product._id}
+              _id={product._id}
               name={product.name}
               price={product.price}
-              image={`http://localhost:5000/images/${product.image}`}
+              image={product.image}
               vendorId={product.vendorId}
-              onAddToCart={() => {}}
             />
           ))
         )}

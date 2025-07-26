@@ -2,26 +2,30 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Account.css';
 import { useNavigate } from 'react-router-dom';
+import API from '../api'; // ✅ add this line to import the base URL
 
 export default function Account() {
   const [user, setUser] = useState(null);
   const [editMode, setEditMode] = useState(false);
-  const [form, setForm] = useState({ fullName: '', email: '' });
+  const [form, setForm] = useState({ fullName: '', email: '', phone: '' });
   const [passwords, setPasswords] = useState({ currentPassword: '', newPassword: '' });
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState({ error: '', success: '' });
 
   const navigate = useNavigate();
 
-  // Fetch user on mount
   useEffect(() => {
     async function fetchUser() {
       try {
-        const res = await axios.get('http://localhost:5000/api/users/me', {
+        const res = await axios.get(`${API}/api/users/me`, {
           withCredentials: true,
         });
         setUser(res.data);
-        setForm({ fullName: res.data.fullName, email: res.data.email });
+        setForm({
+          fullName: res.data.fullName,
+          email: res.data.email,
+          phone: res.data.phone || '',
+        });
       } catch (err) {
         setMsg({ error: '⚠️ Session expired. Please login.', success: '' });
         setTimeout(() => navigate('/login'), 1500);
@@ -30,7 +34,6 @@ export default function Account() {
     fetchUser();
   }, [navigate]);
 
-  // Handle form input
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -39,12 +42,11 @@ export default function Account() {
     setPasswords({ ...passwords, [e.target.name]: e.target.value });
   };
 
-  // Save profile
   const handleSave = async () => {
     setLoading(true);
     setMsg({ error: '', success: '' });
     try {
-      const res = await axios.put('http://localhost:5000/api/users/me', form, {
+      const res = await axios.put(`${API}/api/users/me`, form, {
         withCredentials: true,
       });
       setUser(res.data);
@@ -57,16 +59,13 @@ export default function Account() {
     }
   };
 
-  // Change password
   const handlePasswordUpdate = async () => {
     setLoading(true);
     setMsg({ error: '', success: '' });
     try {
-      const res = await axios.put(
-        'http://localhost:5000/api/users/password',
-        passwords,
-        { withCredentials: true }
-      );
+      const res = await axios.put(`${API}/api/users/password`, passwords, {
+        withCredentials: true,
+      });
       setMsg({ success: res.data.message, error: '' });
       setPasswords({ currentPassword: '', newPassword: '' });
     } catch (err) {
@@ -76,10 +75,9 @@ export default function Account() {
     }
   };
 
-  // Logout
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:5000/api/auth/logout', {}, {
+      await axios.post(`${API}/api/auth/logout`, {}, {
         withCredentials: true
       });
       window.location.href = '/login';
@@ -107,9 +105,16 @@ export default function Account() {
 
         <label>Email</label>
         {editMode ? (
-          <input type="email" name="email" value={form.email} onChange={handleChange} />
+          <input type="email" name="email" value={form.email} onChange={handleChange} disabled />
         ) : (
           <p>{user.email}</p>
+        )}
+
+        <label>Phone</label>
+        {editMode ? (
+          <input type="text" name="phone" value={form.phone} onChange={handleChange} />
+        ) : (
+          <p>{user.phone || '—'}</p>
         )}
 
         <div className="account-actions">

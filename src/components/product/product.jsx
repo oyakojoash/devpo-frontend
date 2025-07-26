@@ -3,18 +3,19 @@ import { useNavigate, Link } from 'react-router-dom';
 import './product.css';
 import { vendors } from '../../data/vendors';
 import { CartContext } from '../../context/CartContext';
+import API from '../../api'; // ✅ centralized base URL
 
-export default function Product({ id, name, price, image, vendorId }) {
+export default function Product({ _id, name, price, image, vendorId }) {
   const vendor = vendors.find((v) => v.id === vendorId);
   const navigate = useNavigate();
-  const { addToCart } = useContext(CartContext); // 👈 Get from context
+  const { addToCart } = useContext(CartContext);
 
   const handleCardClick = () => {
-    navigate(`/products/${id}`);
+    navigate(`/products/${_id}`);
   };
 
   const handleAddToCart = () => {
-    addToCart({ id, name, price, image }); // 👈 Send product info
+    addToCart({ _id, name, price, image });
   };
 
   return (
@@ -29,14 +30,15 @@ export default function Product({ id, name, price, image, vendorId }) {
       }}
     >
       <img
-        src={image}
+        src={`${API}/images/${image}`}
         alt={name}
         className="product-image"
         onError={(e) => {
           e.target.onerror = null;
-          e.target.src = 'http://localhost:5000/images/fallback-logo.png';
+          e.target.src = `${API}/images/fallback.jpeg`;
         }}
       />
+
       <h3 className="product-name">{name}</h3>
       <p className="product-price">${Number(price).toFixed(2)}</p>
 
@@ -48,12 +50,12 @@ export default function Product({ id, name, price, image, vendorId }) {
         >
           <div className="vendor-info">
             <img
-              src={`http://localhost:5000/images/vendors/${vendor.logo}`}
+              src={`${API}/images/vendors/${vendor.logo}`}
               alt={vendor.name}
               className="vendor-logo"
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = 'http://localhost:5000/images/fallback-logo.png';
+                e.target.src = `${API}/images/fallback-logo.png`;
               }}
             />
             <span>{vendor.name}</span>

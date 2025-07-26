@@ -2,10 +2,17 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './Login.css';
 import { useNavigate, Link } from 'react-router-dom';
+import API from '../api'; // ✅ import centralized backend URL
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(true);
-  const [form, setForm] = useState({ fullName: '', email: '', password: '' });
+  const [form, setForm] = useState({
+    fullName: '',
+    email: '',
+    password: '',
+    phone: '',
+  });
+
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
@@ -28,6 +35,7 @@ export default function Login() {
     const email = form.email.trim();
     const fullName = form.fullName.trim();
     const password = form.password;
+    const phone = form.phone.trim();
 
     if (!validateEmail(email)) return setError('❌ Enter a valid email');
     if (!isLogin && !validatePassword(password))
@@ -35,14 +43,16 @@ export default function Login() {
 
     setLoading(true);
 
+    // ✅ Use dynamic backend URL
     const url = isLogin
-      ? 'http://localhost:5000/api/auth/login'
-      : 'http://localhost:5000/api/auth/register';
+      ? `${API}/api/auth/login`
+      : `${API}/api/auth/register`;
 
-    const payload = isLogin ? { email, password } : { fullName, email, password };
+    const payload = isLogin
+      ? { email, password }
+      : { fullName, email, password, phone };
 
     try {
-      // ✅ Cookie-based login fix
       await axios.post(url, payload, { withCredentials: true });
 
       if (isLogin) {
@@ -53,7 +63,7 @@ export default function Login() {
         setIsLogin(true);
       }
 
-      setForm({ fullName: '', email: '', password: '' });
+      setForm({ fullName: '', email: '', password: '', phone: '' });
     } catch (err) {
       setError(err.response?.data?.message || 'Something went wrong');
     } finally {
@@ -67,14 +77,24 @@ export default function Login() {
         <h2>{isLogin ? 'Login' : 'Sign Up'}</h2>
         <form onSubmit={handleSubmit} className="form">
           {!isLogin && (
-            <input
-              type="text"
-              name="fullName"
-              placeholder="Full Name"
-              value={form.fullName}
-              onChange={handleChange}
-              required
-            />
+            <>
+              <input
+                type="text"
+                name="fullName"
+                placeholder="Full Name"
+                value={form.fullName}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone Number"
+                value={form.phone}
+                onChange={handleChange}
+                required
+              />
+            </>
           )}
 
           <input

@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-
 import Navbar from './components/NavBar/Navbar';
 import ProductsPage from './pages/Productpage/ProductsPage';
 import CartPage from './pages/Cartpage/CartPage';
 import Login from './pages/login/Login';
 import Account from './pages/account/Account';
-import ResetPassword from './pages/login/ResetPassword';
 import ForgotPassword from './pages/login/ForgotPassword';
 import ProductDetails from './pages/ProductDetails/ProductDetails';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
@@ -49,7 +47,6 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/vendor/:vendorId" element={<VendorPage />} />
         <Route
           path="/account"
