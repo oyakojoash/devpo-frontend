@@ -1,15 +1,13 @@
 // components/ProtectedRoute.jsx
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import axios from 'axios';
-import API from '../api'; // ✅ Import centralized API base
+import API from '../api'; // centralized axios instance
 
 export default function ProtectedRoute({ children }) {
   const [auth, setAuth] = useState(null); // null = loading, false = not logged in
 
   useEffect(() => {
-    axios
-      .get(`${API}/api/auth/me`, { withCredentials: true })
+    API.get('/auth/me') // ✅ just use the path relative to your baseURL
       .then(() => setAuth(true))
       .catch(() => setAuth(false));
   }, []);
