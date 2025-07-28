@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import API from '../../api';
- // ✅ use env-based API URL
+import API from '../../api'; // ✅ Axios instance with baseURL
 
 export default function ForgotPassword() {
   const [step, setStep] = useState(1);
@@ -18,11 +16,9 @@ export default function ForgotPassword() {
     setLoading(true);
 
     try {
-      const { data } = await axios.post(`${API}/api/auth/forgot-password`, {
-        email,
-      });
+      const { data } = await API.post('/auth/forgot-password', { email });
       setMessage(data.message || '✅ Code sent to your email or phone.');
-      setStep(2); // move to next step
+      setStep(2);
     } catch (err) {
       setMessage(err.response?.data?.message || 'Something went wrong');
     } finally {
@@ -47,11 +43,12 @@ export default function ForgotPassword() {
     }
 
     try {
-      const { data } = await axios.post(`${API}/api/auth/reset-password`, {
+      const { data } = await API.post('/auth/reset-password', {
         email,
         code,
         newPassword,
       });
+
       setMessage(data.message || '✅ Password reset successful. You can now login.');
       setStep(1);
       setCode('');

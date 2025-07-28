@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import './Login.css';
 import { useNavigate, Link } from 'react-router-dom';
-import API from '../../api';
-// ✅ import centralized backend URL
+import API from '../../api'; // ✅ Axios instance with baseURL
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(true);
@@ -44,20 +42,17 @@ export default function Login() {
 
     setLoading(true);
 
-    // ✅ Use dynamic backend URL
-    const url = isLogin
-      ? `${API}/api/auth/login`
-      : `${API}/api/auth/register`;
-
+    const url = isLogin ? '/auth/login' : '/auth/register';
     const payload = isLogin
       ? { email, password }
       : { fullName, email, password, phone };
 
     try {
-      await axios.post(url, payload, { withCredentials: true });
+      const { data } = await API.post(url, payload);
 
       if (isLogin) {
         setSuccess('✅ Login successful!');
+        // Optionally: set user in context using data.user
         navigate('/account');
       } else {
         setSuccess('✅ Registered successfully. Please login.');
