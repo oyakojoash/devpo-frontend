@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Product from '../../components/product/product';
 import './ProductsPage.css';
 import { CartContext } from '../../context/CartContext';
-import API from '../../api'; // ✅ Use centralized API
+import API from '../../api'; // ✅ Axios instance
 
 export default function ProductsPage({ searchTerm }) {
   const PRODUCTS_PER_PAGE = 20;
@@ -22,18 +22,21 @@ export default function ProductsPage({ searchTerm }) {
       setError('');
 
       try {
-        const res = await fetch(
-          `${API}/api/products?search=${encodeURIComponent(searchTerm)}&page=${currentPage}&limit=${PRODUCTS_PER_PAGE}`,
-          { signal: controller.signal }
-        );
+        const res = await API.get('/products', {
+          params: {
+            search: searchTerm,
+            page: currentPage,
+            limit: PRODUCTS_PER_PAGE,
+          },
+          signal: controller.signal,
+        });
 
-        if (!res.ok) throw new Error('Server error while fetching products');
-        const data = await res.json();
+        const data = res.data;
 
         setProducts(data.products || []);
         setTotalPages(data.totalPages || 1);
       } catch (err) {
-        if (err.name !== 'AbortError') {
+        if (err.name !== 'CanceledError' && err.name !== 'AbortError') {
           console.error('Fetch error:', err);
           setError('⚠️ Failed to load products. Please try again later.');
         }
