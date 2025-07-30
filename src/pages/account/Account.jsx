@@ -1,9 +1,8 @@
+// src/pages/account/Account.jsx
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import './Account.css';
 import { useNavigate } from 'react-router-dom';
 import API from '../../api';
- // ✅ add this line to import the base URL
 
 export default function Account() {
   const [user, setUser] = useState(null);
@@ -18,9 +17,7 @@ export default function Account() {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const res = await axios.get(`${API}/api/users/me`, {
-          withCredentials: true,
-        });
+        const res = await API.get('/me');
         setUser(res.data);
         setForm({
           fullName: res.data.fullName,
@@ -47,9 +44,7 @@ export default function Account() {
     setLoading(true);
     setMsg({ error: '', success: '' });
     try {
-      const res = await axios.put(`${API}/api/users/me`, form, {
-        withCredentials: true,
-      });
+      const res = await API.put('/me', form);
       setUser(res.data);
       setMsg({ success: '✅ Profile updated', error: '' });
       setEditMode(false);
@@ -64,9 +59,7 @@ export default function Account() {
     setLoading(true);
     setMsg({ error: '', success: '' });
     try {
-      const res = await axios.put(`${API}/api/users/password`, passwords, {
-        withCredentials: true,
-      });
+      const res = await API.put('/users/password', passwords);
       setMsg({ success: res.data.message, error: '' });
       setPasswords({ currentPassword: '', newPassword: '' });
     } catch (err) {
@@ -78,9 +71,7 @@ export default function Account() {
 
   const handleLogout = async () => {
     try {
-      await axios.post(`${API}/api/auth/logout`, {}, {
-        withCredentials: true
-      });
+      await API.post('/auth/logout');
       window.location.href = '/login';
     } catch (err) {
       setMsg({ error: '❌ Logout failed', success: '' });

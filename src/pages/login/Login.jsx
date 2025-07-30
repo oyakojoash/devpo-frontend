@@ -1,7 +1,8 @@
+// src/pages/login/Login.jsx
 import React, { useState } from 'react';
 import './Login.css';
 import { useNavigate, Link } from 'react-router-dom';
-import API from '../../api'; // ✅ Axios instance with baseURL
+import API from '../../api';
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(true);
@@ -31,10 +32,7 @@ export default function Login() {
     setError('');
     setSuccess('');
 
-    const email = form.email.trim();
-    const fullName = form.fullName.trim();
-    const password = form.password;
-    const phone = form.phone.trim();
+    const { fullName, email, password, phone } = form;
 
     if (!validateEmail(email)) return setError('❌ Enter a valid email');
     if (!isLogin && !validatePassword(password))
@@ -43,16 +41,12 @@ export default function Login() {
     setLoading(true);
 
     const url = isLogin ? '/auth/login' : '/auth/register';
-    const payload = isLogin
-      ? { email, password }
-      : { fullName, email, password, phone };
+    const payload = isLogin ? { email, password } : { fullName, email, password, phone };
 
     try {
       const { data } = await API.post(url, payload);
-
       if (isLogin) {
         setSuccess('✅ Login successful!');
-        // Optionally: set user in context using data.user
         navigate('/account');
       } else {
         setSuccess('✅ Registered successfully. Please login.');

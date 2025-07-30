@@ -38,3 +38,4 @@ export default function ResetPassword() {
     </div>
   );
 }
+//"C:\Users\hp\Desktop\memo\proto1\frontend\src\pages\login\ResetPassword.jsx"

@@ -6,3 +6,5 @@ const API = axios.create({
 });
 
 export default API;
+  
+//"C:\Users\hp\Desktop\memo\proto1\frontend\src\api.js"

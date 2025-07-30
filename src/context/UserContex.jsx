@@ -1,5 +1,6 @@
+// src/context/UserContext.jsx
 import { createContext, useEffect, useState } from 'react';
-import API from '../api'; // ✅ centralized base URL
+import API from '../api';
 
 export const UserContext = createContext();
 
@@ -8,7 +9,7 @@ export default function UserProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    API.get('/auth/me') // ✅ cleaner and correct
+    API.get('/me')
       .then((res) => {
         setUser(res.data);
       })
