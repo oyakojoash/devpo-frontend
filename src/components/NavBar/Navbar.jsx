@@ -14,7 +14,7 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const res = await fetch('/api/auth/me', {
+        const res = await fetch('/auth/me', {
           credentials: 'include',
         });
         if (res.ok) {
