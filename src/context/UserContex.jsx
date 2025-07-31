@@ -1,4 +1,3 @@
-// src/context/UserContext.jsx
 import { createContext, useEffect, useState } from 'react';
 import API from '../api';
 
@@ -9,16 +8,10 @@ export default function UserProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    API.get('/me')
-      .then((res) => {
-        setUser(res.data);
-      })
-      .catch(() => {
-        setUser(null);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    API.get('/auth/me')
+      .then((res) => setUser(res.data))
+      .catch(() => setUser(null))
+      .finally(() => setLoading(false));
   }, []);
 
   return (

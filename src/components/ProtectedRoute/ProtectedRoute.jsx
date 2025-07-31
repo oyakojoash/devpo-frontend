@@ -1,13 +1,12 @@
-// components/ProtectedRoute.jsx
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import API from '../../api'; 
+import API from '../../api';
 
 export default function ProtectedRoute({ children }) {
-  const [auth, setAuth] = useState(null); // null = loading, false = not logged in
+  const [auth, setAuth] = useState(null);
 
   useEffect(() => {
-    API.get('/auth/me') // ✅ just use the path relative to your baseURL
+    API.get('/auth/me')
       .then(() => setAuth(true))
       .catch(() => setAuth(false));
   }, []);

@@ -1,4 +1,3 @@
-// src/pages/account/Account.jsx
 import React, { useEffect, useState } from 'react';
 import './Account.css';
 import { useNavigate } from 'react-router-dom';
@@ -17,7 +16,7 @@ export default function Account() {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const res = await API.get('/me');
+        const res = await API.get('/auth/me');
         setUser(res.data);
         setForm({
           fullName: res.data.fullName,
@@ -44,7 +43,7 @@ export default function Account() {
     setLoading(true);
     setMsg({ error: '', success: '' });
     try {
-      const res = await API.put('/me', form);
+      const res = await API.put('/auth/me', form);
       setUser(res.data);
       setMsg({ success: '✅ Profile updated', error: '' });
       setEditMode(false);
@@ -59,7 +58,7 @@ export default function Account() {
     setLoading(true);
     setMsg({ error: '', success: '' });
     try {
-      const res = await API.put('/users/password', passwords);
+      const res = await API.put('/auth/password', passwords);
       setMsg({ success: res.data.message, error: '' });
       setPasswords({ currentPassword: '', newPassword: '' });
     } catch (err) {
