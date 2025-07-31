@@ -1,25 +1,35 @@
 // src/services/orderService.js
+import API from '../api';
 
+// ✅ Fetch a single order by ID
 export const fetchOrderById = async (id) => {
-  const res = await fetch(`/api/orders/${id}`, { credentials: 'include' });
-  if (!res.ok) throw new Error('Failed to fetch order');
-  return res.json();
+  try {
+    const res = await API.get(`/orders/${id}`);
+    return res.data;
+  } catch (err) {
+    console.error('[fetchOrderById] ❌', err);
+    return { error: 'Failed to fetch order' };
+  }
 };
 
+// ✅ Cancel an order by ID
 export const cancelOrder = async (id) => {
-  const res = await fetch(`/api/orders/${id}/cancel`, {
-    method: 'PATCH',
-    credentials: 'include',
-  });
-  if (!res.ok) throw new Error('Failed to cancel order');
-  return res.json();
+  try {
+    const res = await API.patch(`/orders/${id}/cancel`);
+    return res.data;
+  } catch (err) {
+    console.error('[cancelOrder] ❌', err);
+    return { error: 'Failed to cancel order' };
+  }
 };
 
-// ✅ ADD THIS
+// ✅ Get all orders of logged-in user
 export const getUserOrders = async () => {
-  const res = await fetch('/api/orders/my-orders', {
-    credentials: 'include',
-  });
-  if (!res.ok) throw new Error('Failed to fetch user orders');
-  return res.json();
+  try {
+    const res = await API.get('/orders/my-orders');
+    return res.data;
+  } catch (err) {
+    console.error('[getUserOrders] ❌', err);
+    return { error: 'Failed to fetch user orders' };
+  }
 };

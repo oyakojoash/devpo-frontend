@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Product from '../../components/product/product';
 import './ProductsPage.css';
 import { CartContext } from '../../context/CartContext';
-import API from '../../api'; // ✅ Axios instance
+import API from '../../api';
 
 export default function ProductsPage({ searchTerm }) {
   const PRODUCTS_PER_PAGE = 20;
@@ -17,33 +17,32 @@ export default function ProductsPage({ searchTerm }) {
   useEffect(() => {
     const controller = new AbortController();
 
-    const fetchProducts = async () => {
+    async function fetchProducts() {
       setLoading(true);
       setError('');
 
       try {
         const res = await API.get('/products', {
           params: {
-            search: searchTerm,
+            search: searchTerm || '', // ✅ ensure fallback
             page: currentPage,
             limit: PRODUCTS_PER_PAGE,
           },
           signal: controller.signal,
         });
 
-        const data = res.data;
-
-        setProducts(data.products || []);
-        setTotalPages(data.totalPages || 1);
+        const { products = [], totalPages = 1 } = res.data;
+        setProducts(products);
+        setTotalPages(totalPages);
       } catch (err) {
         if (err.name !== 'CanceledError' && err.name !== 'AbortError') {
-          console.error('Fetch error:', err);
+          console.error('[ProductsPage] ❌', err);
           setError('⚠️ Failed to load products. Please try again later.');
         }
       } finally {
         setLoading(false);
       }
-    };
+    }
 
     fetchProducts();
     return () => controller.abort();
@@ -64,7 +63,7 @@ export default function ProductsPage({ searchTerm }) {
 
       <div className="product-list">
         {products
-          .filter(product => product.name && product.price)
+          .filter((p) => p.name && p.price != null)
           .map((product) => (
             <Product
               key={product._id}
@@ -73,6 +72,7 @@ export default function ProductsPage({ searchTerm }) {
               price={product.price}
               image={product.image}
               vendorId={product.vendorId}
+              addToCart={addToCart}
             />
           ))}
       </div>
@@ -85,9 +85,7 @@ export default function ProductsPage({ searchTerm }) {
           >
             ⬅ Prev
           </button>
-          <span>
-            Page {currentPage} of {totalPages}
-          </span>
+          <span>Page {currentPage} of {totalPages}</span>
           <button
             onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
             disabled={currentPage === totalPages}
