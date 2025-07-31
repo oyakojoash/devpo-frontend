@@ -43,8 +43,7 @@ export default function Account() {
     setLoading(true);
     setMsg({ error: '', success: '' });
     try {
-      const res = await API.put('/auth/me', form);
-      setUser(res.data);
+      await API.put('/user/me', form); // 🔁 updated endpoint
       setMsg({ success: '✅ Profile updated', error: '' });
       setEditMode(false);
     } catch (err) {
@@ -58,7 +57,7 @@ export default function Account() {
     setLoading(true);
     setMsg({ error: '', success: '' });
     try {
-      const res = await API.put('/auth/password', passwords);
+      const res = await API.put('/user/password', passwords); // 🔁 updated endpoint
       setMsg({ success: res.data.message, error: '' });
       setPasswords({ currentPassword: '', newPassword: '' });
     } catch (err) {
