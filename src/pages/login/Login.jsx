@@ -44,7 +44,7 @@ export default function Login() {
     const payload = isLogin ? { email, password } : { fullName, email, password, phone };
 
     try {
-      const { data } = await API.post(url, payload);
+      const { data } = await API.post(url, payload, { withCredentials: true });
       if (isLogin) {
         setSuccess('✅ Login successful!');
         navigate('/account');
