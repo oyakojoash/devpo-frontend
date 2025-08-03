@@ -16,7 +16,7 @@ export default function Account() {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const res = await API.get('/auth/me');
+        const res = await API.get('auth/me');
         setUser(res.data);
         setForm({
           fullName: res.data.fullName,

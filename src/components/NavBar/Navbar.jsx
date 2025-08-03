@@ -15,8 +15,10 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
     const checkSession = async () => {
       try {
         const res = await fetch('/auth/me', {
-          credentials: 'include',
-        });
+      credentials: 'true',
+         });
+
+        
         if (res.ok) {
           const data = await res.json();
           setUser(data);
