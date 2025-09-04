@@ -38,10 +38,16 @@ export default function Login() {
     if (!isLogin && !validatePassword(password))
       return setError('❌ Password must include uppercase, lowercase, number, and symbol');
 
+    console.log("🟢 Form submitted");
+
     setLoading(true);
 
     const url = isLogin ? '/auth/login' : '/auth/register';
     const payload = isLogin ? { email, password } : { fullName, email, password, phone };
+
+     console.log("🔍 isLogin:", isLogin);
+  console.log("📤 URL to send:", url);
+  console.log("📦 Payload:", payload);
 
     try {
       const { data } = await API.post(url, payload, { withCredentials: true });
@@ -56,8 +62,10 @@ export default function Login() {
       setForm({ fullName: '', email: '', password: '', phone: '' });
     } catch (err) {
       setError(err.response?.data?.message || 'Something went wrong');
+      console.error("🧵 Full error object:", err);
     } finally {
       setLoading(false);
+      console.log("🛑 Loading finished");
     }
   };
 

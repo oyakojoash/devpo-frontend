@@ -8,7 +8,7 @@ export default function UserProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    API.get('/api/auth/me')
+    API.get('/auth/me')
       .then((res) => setUser(res.data))
       .catch(() => setUser(null))
       .finally(() => setLoading(false));

@@ -7,8 +7,12 @@ export default function ProtectedRoute({ children }) {
 
   useEffect(() => {
     API.get('/auth/me')
-      .then(() => setAuth(true))
+      .then((res) => {
+        console.log("✅ Auth success:", res.data);  // ✅ move inside here
+        setAuth(true);
+      })
       .catch(() => setAuth(false));
+     
   }, []);
 
   if (auth === null) return <div>Checking authentication...</div>;
