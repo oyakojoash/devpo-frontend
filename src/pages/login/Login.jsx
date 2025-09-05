@@ -42,7 +42,7 @@ export default function Login() {
 
     setLoading(true);
 
-    const url = isLogin ? '/api/auth/login' : 'api/auth/register';
+    const url = isLogin ? '/api/auth/login' : '/api/auth/register';
     const payload = isLogin ? { email, password } : { fullName, email, password, phone };
 
      console.log("🔍 isLogin:", isLogin);
