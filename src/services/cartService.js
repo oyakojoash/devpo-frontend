@@ -23,7 +23,7 @@ const handleError = (err, action) => {
 // 🚚 GET cart items
 export const getCart = async () => {
   try {
-    const res = await API.get('/cart');
+    const res = await API.get('/api/cart');
     return res.data; // { items: [...] }
   } catch (err) {
     return handleError(err, 'getCart');
@@ -35,7 +35,7 @@ export const updateCart = async (productId, quantity) => {
   if (!productId) return { error: 'Missing productId' };
 
   try {
-    const res = await API.post('/cart', { productId, quantity });
+    const res = await API.post('/api/cart', { productId, quantity });
     return res.data; // { items: [...] }
   } catch (err) {
     return handleError(err, 'updateCart');
@@ -47,7 +47,7 @@ export const removeFromCart = async (productId) => {
   if (!productId) return { error: 'Missing productId' };
 
   try {
-    const res = await API.delete(`/cart/${productId}`);
+    const res = await API.delete(`/api/cart/${productId}`);
     return res.data; // { items: [...] }
   } catch (err) {
     return handleError(err, 'removeFromCart');

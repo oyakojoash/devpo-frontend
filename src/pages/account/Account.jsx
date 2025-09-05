@@ -16,7 +16,7 @@ export default function Account() {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const res = await API.get('auth/me');
+        const res = await API.get('/api/auth/me');
         setUser(res.data);
         setForm({
           fullName: res.data.fullName,
@@ -43,7 +43,7 @@ export default function Account() {
     setLoading(true);
     setMsg({ error: '', success: '' });
     try {
-      await API.put('/user/me', form); // 🔁 updated endpoint
+      await API.put('/api/user/me', form); // 🔁 updated endpoint
       setMsg({ success: '✅ Profile updated', error: '' });
       setEditMode(false);
     } catch (err) {
@@ -57,7 +57,7 @@ export default function Account() {
     setLoading(true);
     setMsg({ error: '', success: '' });
     try {
-      const res = await API.put('/user/password', passwords); // 🔁 updated endpoint
+      const res = await API.put('/api/user/password', passwords); // 🔁 updated endpoint
       setMsg({ success: res.data.message, error: '' });
       setPasswords({ currentPassword: '', newPassword: '' });
     } catch (err) {
@@ -69,7 +69,7 @@ export default function Account() {
 
   const handleLogout = async () => {
     try {
-      await API.post('/auth/logout');
+      await API.post('/api/auth/logout');
       window.location.href = '/login';
     } catch (err) {
       setMsg({ error: '❌ Logout failed', success: '' });
