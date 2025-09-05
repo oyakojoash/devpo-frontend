@@ -6,7 +6,7 @@ export default function ProtectedRoute({ children }) {
   const [auth, setAuth] = useState(null);
 
   useEffect(() => {
-    API.get('/auth/me')
+    API.get('/api/auth/me')
       .then((res) => {
         console.log("✅ Auth success:", res.data);  // ✅ move inside here
         setAuth(true);
