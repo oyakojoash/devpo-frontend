@@ -1,3 +1,4 @@
+// src/pages/account/Account.jsx
 import React, { useEffect, useState } from 'react';
 import './Account.css';
 import { useNavigate } from 'react-router-dom';
@@ -13,10 +14,11 @@ export default function Account() {
 
   const navigate = useNavigate();
 
+  // ✅ Fetch user profile with cookie
   useEffect(() => {
     async function fetchUser() {
       try {
-        const res = await API.get('/api/auth/me');
+        const res = await API.get('/api/auth/me', { withCredentials: true });
         setUser(res.data);
         setForm({
           fullName: res.data.fullName,
@@ -39,11 +41,12 @@ export default function Account() {
     setPasswords({ ...passwords, [e.target.name]: e.target.value });
   };
 
+  // ✅ Save profile with cookie
   const handleSave = async () => {
     setLoading(true);
     setMsg({ error: '', success: '' });
     try {
-      await API.put('/api/user/me', form); // 🔁 updated endpoint
+      await API.put('/api/user/me', form, { withCredentials: true });
       setMsg({ success: '✅ Profile updated', error: '' });
       setEditMode(false);
     } catch (err) {
@@ -53,11 +56,12 @@ export default function Account() {
     }
   };
 
+  // ✅ Update password with cookie
   const handlePasswordUpdate = async () => {
     setLoading(true);
     setMsg({ error: '', success: '' });
     try {
-      const res = await API.put('/api/user/password', passwords); // 🔁 updated endpoint
+      const res = await API.put('/api/user/password', passwords, { withCredentials: true });
       setMsg({ success: res.data.message, error: '' });
       setPasswords({ currentPassword: '', newPassword: '' });
     } catch (err) {
@@ -67,9 +71,10 @@ export default function Account() {
     }
   };
 
+  // ✅ Logout with cookie
   const handleLogout = async () => {
     try {
-      await API.post('/api/auth/logout');
+      await API.post('/api/auth/logout', {}, { withCredentials: true });
       window.location.href = '/login';
     } catch (err) {
       setMsg({ error: '❌ Logout failed', success: '' });
