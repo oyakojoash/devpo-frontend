@@ -22,7 +22,7 @@ export default function ProductsPage({ searchTerm }) {
       setError('');
 
       try {
-        const res = await API.get('/products', {
+        const res = await API.get('/api/products', {
           params: {
             search: searchTerm || '', // ✅ ensure fallback
             page: currentPage,
