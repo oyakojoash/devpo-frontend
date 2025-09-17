@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import SearchBar from '../search/SearchBar';
 import { CartContext } from '../../context/CartContext';
+import API from '../api';
 
 export default function Navbar({ searchTerm, setSearchTerm }) {
   const { cartItems } = useContext(CartContext);
@@ -14,7 +15,7 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const res = await fetch('/auth/me', {
+        const res = await API.fetch('/api/auth/me', {
       credentials: 'true',
          });
 
