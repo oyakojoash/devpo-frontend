@@ -1,10 +1,12 @@
 // src/pages/login/Login.jsx
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './Login.css';
 import { useNavigate, Link } from 'react-router-dom';
 import API from '../../api';
+import { UserContext } from '../../context/UserContext';
 
 export default function Login() {
+  const { setUser } = useContext(UserContext); // ✅ Access global user state
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({
     fullName: '',
@@ -52,8 +54,17 @@ export default function Login() {
     try {
       const { data } = await API.post(url, payload, { withCredentials: true });
       if (isLogin) {
-        setSuccess('✅ Login successful!');
-        navigate('/account');
+        // ✅ After successful login, fetch user data and set global state
+        try {
+          const userRes = await API.get('/api/auth/me');
+          setUser(userRes.data); // ✅ Update global user state
+          setSuccess('✅ Login successful!');
+          navigate('/account');
+        } catch (userErr) {
+          console.warn('Failed to fetch user after login:', userErr);
+          setSuccess('✅ Login successful!');
+          navigate('/account');
+        }
       } else {
         setSuccess('✅ Registered successfully. Please login.');
         setIsLogin(true);

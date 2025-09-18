@@ -1,29 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import SearchBar from '../search/SearchBar';
 import { CartContext } from '../../context/CartContext';
+import { UserContext } from '../../context/UserContext';
 import API from '../../api';
 
 export default function Navbar({ searchTerm, setSearchTerm }) {
   const { cartItems } = useContext(CartContext);
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useContext(UserContext); // ✅ Use global user context
   const [menuOpen, setMenuOpen] = useState(false);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const res = await API.get('/api/auth/me');
-        setUser(res.data);
-      } catch (err) {
-        setUser(null);
-      }
-    };
-
-    checkSession();
-  }, []);
 
   const logout = async () => {
     try {

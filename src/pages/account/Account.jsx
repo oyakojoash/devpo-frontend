@@ -1,11 +1,12 @@
 // src/pages/account/Account.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './Account.css';
 import { useNavigate } from 'react-router-dom';
 import API from '../../api';
+import { UserContext } from '../../context/UserContext';
 
 export default function Account() {
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useContext(UserContext); // ✅ Use global user context
   const [editMode, setEditMode] = useState(false);
   const [form, setForm] = useState({ fullName: '', email: '', phone: '' });
   const [passwords, setPasswords] = useState({ currentPassword: '', newPassword: '' });
@@ -14,24 +15,24 @@ export default function Account() {
 
   const navigate = useNavigate();
 
-  // ✅ Fetch user profile with cookie
+  // ✅ Initialize form with user data when available
   useEffect(() => {
-    async function fetchUser() {
-      try {
-        const res = await API.get('/api/auth/me', { withCredentials: true });
-        setUser(res.data);
-        setForm({
-          fullName: res.data.fullName,
-          email: res.data.email,
-          phone: res.data.phone || '',
-        });
-      } catch (err) {
-        setMsg({ error: '⚠️ Session expired. Please login.', success: '' });
-        setTimeout(() => navigate('/login'), 1500);
-      }
+    if (user) {
+      setForm({
+        fullName: user.fullName || '',
+        email: user.email || '',
+        phone: user.phone || '',
+      });
     }
-    fetchUser();
-  }, [navigate]);
+  }, [user]);
+
+  // ✅ Redirect to login if user is null (not authenticated)
+  useEffect(() => {
+    if (user === null) {
+      setMsg({ error: '⚠️ Session expired. Please login.', success: '' });
+      setTimeout(() => navigate('/login'), 1500);
+    }
+  }, [user, navigate]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -47,6 +48,8 @@ export default function Account() {
     setMsg({ error: '', success: '' });
     try {
       await API.put('/api/user/me', form, { withCredentials: true });
+      // ✅ Update global user state with new data
+      setUser({ ...user, ...form });
       setMsg({ success: '✅ Profile updated', error: '' });
       setEditMode(false);
     } catch (err) {
@@ -75,9 +78,13 @@ export default function Account() {
   const handleLogout = async () => {
     try {
       await API.post('/api/auth/logout', {}, { withCredentials: true });
-      window.location.href = '/login';
+      setUser(null); // ✅ Clear global user state
+      navigate('/login');
     } catch (err) {
-      setMsg({ error: '❌ Logout failed', success: '' });
+      console.error('Logout error:', err);
+      // ✅ Even if logout fails, clear user state locally
+      setUser(null);
+      navigate('/login');
     }
   };
 

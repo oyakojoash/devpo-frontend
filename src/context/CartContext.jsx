@@ -15,6 +15,12 @@ export const CartProvider = ({ children }) => {
     const fetchCart = async () => {
       try {
         const data = await getCart();
+        if (data.error && data.unauthorized) {
+          // ✅ Session expired - redirect to login
+          console.warn('[Cart] Session expired, redirecting to login');
+          window.location.href = '/login';
+          return;
+        }
         setCartItems(data.items || []);
         console.log('[Cart] Loaded from backend:', data.items);
       } catch (err) {
@@ -30,6 +36,12 @@ export const CartProvider = ({ children }) => {
 
     try {
       const updated = await updateCart(productId, newQuantity);
+      if (updated.error && updated.unauthorized) {
+        // ✅ Session expired - redirect to login
+        console.warn('[Cart] Session expired during update, redirecting to login');
+        window.location.href = '/login';
+        return;
+      }
       setCartItems(updated.items || []);
       console.log('[Cart] ✅ Quantity updated');
     } catch (err) {
@@ -43,6 +55,12 @@ export const CartProvider = ({ children }) => {
 
     try {
       const updated = await removeFromCart(productId);
+      if (updated.error && updated.unauthorized) {
+        // ✅ Session expired - redirect to login
+        console.warn('[Cart] Session expired during remove, redirecting to login');
+        window.location.href = '/login';
+        return;
+      }
       setCartItems(updated.items || []);
       console.log('[Cart] ✅ Item removed');
     } catch (err) {
@@ -66,6 +84,12 @@ export const CartProvider = ({ children }) => {
 
     try {
       const updated = await updateCart(productId, newQuantity);
+      if (updated.error && updated.unauthorized) {
+        // ✅ Session expired - redirect to login
+        console.warn('[Cart] Session expired during add, redirecting to login');
+        window.location.href = '/login';
+        return;
+      }
       setCartItems(updated.items || []);
       console.log('[Cart] ✅ Product added/updated');
     } catch (err) {
