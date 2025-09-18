@@ -4,7 +4,7 @@ import API from '../api';
 // ✅ Fetch a single order by ID
 export const fetchOrderById = async (id) => {
   try {
-    const res = await API.get(`/orders/${id}`);
+    const res = await API.get(`/api/orders/${id}`);
     return res.data;
   } catch (err) {
     console.error('[fetchOrderById] ❌', err);
@@ -15,7 +15,7 @@ export const fetchOrderById = async (id) => {
 // ✅ Cancel an order by ID
 export const cancelOrder = async (id) => {
   try {
-    const res = await API.patch(`/orders/${id}/cancel`);
+    const res = await API.patch(`/api/orders/${id}/cancel`);
     return res.data;
   } catch (err) {
     console.error('[cancelOrder] ❌', err);
@@ -26,7 +26,7 @@ export const cancelOrder = async (id) => {
 // ✅ Get all orders of logged-in user
 export const getUserOrders = async () => {
   try {
-    const res = await API.get('/orders/my-orders');
+    const res = await API.get('/api/orders/my-orders');
     return res.data;
   } catch (err) {
     console.error('[getUserOrders] ❌', err);

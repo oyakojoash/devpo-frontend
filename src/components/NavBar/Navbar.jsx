@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import SearchBar from '../search/SearchBar';
 import { CartContext } from '../../context/CartContext';
+import API from '../../api';
 
 export default function Navbar({ searchTerm, setSearchTerm }) {
   const { cartItems } = useContext(CartContext);
@@ -14,15 +15,8 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const res = await fetch('/auth/me', {
-      credentials: 'true',
-         });
-
-        
-        if (res.ok) {
-          const data = await res.json();
-          setUser(data);
-        }
+        const res = await API.get('/api/auth/me');
+        setUser(res.data);
       } catch (err) {
         setUser(null);
       }
@@ -32,12 +26,16 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
   }, []);
 
   const logout = async () => {
-    await fetch('/api/auth/logout', {
-      method: 'POST',
-      credentials: 'include',
-    });
-    setUser(null);
-    navigate('/login');
+    try {
+      await API.post('/api/auth/logout');
+      setUser(null);
+      navigate('/login');
+    } catch (err) {
+      console.error('Logout failed:', err);
+      // Still redirect even if logout fails
+      setUser(null);
+      navigate('/login');
+    }
   };
 
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
