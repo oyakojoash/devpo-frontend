@@ -10,16 +10,27 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
+  // 🛡️ Helper function to check if already on auth pages
+  const isOnAuthPage = () => {
+    const path = window.location.pathname;
+    return path === '/login' || path === '/register' || path.includes('/login') || path.includes('/register');
+  };
+
   // 🔄 Load cart on mount
   useEffect(() => {
     const fetchCart = async () => {
       try {
         const data = await getCart();
         if (data.error && data.unauthorized) {
-          // ✅ Session expired - redirect to login
-          console.warn('[Cart] Session expired, redirecting to login');
-          window.location.href = '/login';
-          return;
+          // ✅ Only redirect if NOT already on auth pages
+          if (!isOnAuthPage()) {
+            console.warn('[Cart] Session expired, redirecting to login');
+            window.location.href = '/login';
+            return;
+          } else {
+            console.log('[Cart] 401 on auth page - normal behavior, not redirecting');
+            return;
+          }
         }
         setCartItems(data.items || []);
         console.log('[Cart] Loaded from backend:', data.items);
@@ -37,10 +48,15 @@ export const CartProvider = ({ children }) => {
     try {
       const updated = await updateCart(productId, newQuantity);
       if (updated.error && updated.unauthorized) {
-        // ✅ Session expired - redirect to login
-        console.warn('[Cart] Session expired during update, redirecting to login');
-        window.location.href = '/login';
-        return;
+        // ✅ Only redirect if NOT already on auth pages
+        if (!isOnAuthPage()) {
+          console.warn('[Cart] Session expired during update, redirecting to login');
+          window.location.href = '/login';
+          return;
+        } else {
+          console.log('[Cart] 401 during update on auth page - not redirecting');
+          return;
+        }
       }
       setCartItems(updated.items || []);
       console.log('[Cart] ✅ Quantity updated');
@@ -56,10 +72,15 @@ export const CartProvider = ({ children }) => {
     try {
       const updated = await removeFromCart(productId);
       if (updated.error && updated.unauthorized) {
-        // ✅ Session expired - redirect to login
-        console.warn('[Cart] Session expired during remove, redirecting to login');
-        window.location.href = '/login';
-        return;
+        // ✅ Only redirect if NOT already on auth pages
+        if (!isOnAuthPage()) {
+          console.warn('[Cart] Session expired during remove, redirecting to login');
+          window.location.href = '/login';
+          return;
+        } else {
+          console.log('[Cart] 401 during remove on auth page - not redirecting');
+          return;
+        }
       }
       setCartItems(updated.items || []);
       console.log('[Cart] ✅ Item removed');
@@ -85,10 +106,15 @@ export const CartProvider = ({ children }) => {
     try {
       const updated = await updateCart(productId, newQuantity);
       if (updated.error && updated.unauthorized) {
-        // ✅ Session expired - redirect to login
-        console.warn('[Cart] Session expired during add, redirecting to login');
-        window.location.href = '/login';
-        return;
+        // ✅ Only redirect if NOT already on auth pages
+        if (!isOnAuthPage()) {
+          console.warn('[Cart] Session expired during add, redirecting to login');
+          window.location.href = '/login';
+          return;
+        } else {
+          console.log('[Cart] 401 during add on auth page - not redirecting');
+          return;
+        }
       }
       setCartItems(updated.items || []);
       console.log('[Cart] ✅ Product added/updated');
