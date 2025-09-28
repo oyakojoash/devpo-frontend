@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./Cart.css";
-import API from "../../api"; // ✅ Use central API path
+import API, { API_BASE_URL } from "../../api"; // Import both
 
 /* --- Utility Helpers --- */
 function safeNumber(value, fallback = 0) {
@@ -40,12 +40,12 @@ export default function Cart({ cartItems, updateQuantity, removeItem }) {
               <div key={product._id} className="cart-item">
                 <div className="cart-item-info">
                   <img
-                    src={`${API}/images/${product.image}`}
+                    src={`${API_BASE_URL}/images/${product.image}`}
                     alt={product.name}
                     className="cart-item-image"
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = `${API}/images/fallback-product.jpeg`;
+                      e.target.src = `${API_BASE_URL}/images/fallback-product.jpeg`;
                     }}
                   />
                   <div>

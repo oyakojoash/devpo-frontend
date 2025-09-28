@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Product from '../../components/product/product';
 import './VendorPage.css';
-import API from '../../api'; // ✅ Use centralized base URL
+import API, { API_BASE_URL } from '../../api'; // Import both
 
 export default function VendorPage() {
   const { vendorId } = useParams();
@@ -14,7 +14,7 @@ export default function VendorPage() {
   useEffect(() => {
     async function fetchVendor() {
       try {
-        const res = await fetch(`${API}/api/vendors/${vendorId}`);
+        const res = await fetch(`${API_BASE_URL}/api/vendors/${vendorId}`);
         if (!res.ok) throw new Error('Vendor not found');
         const data = await res.json();
         setVendor(data);
@@ -29,7 +29,7 @@ export default function VendorPage() {
   useEffect(() => {
     async function fetchVendorProducts() {
       try {
-        const res = await fetch(`${API}/api/vendors/${vendorId}/products`);
+        const res = await fetch(`${API_BASE_URL}/api/vendors/${vendorId}/products`);
         if (!res.ok) throw new Error('Could not load vendor products');
         const data = await res.json();
         setVendorProducts(data);
@@ -50,12 +50,12 @@ export default function VendorPage() {
     <div>
       <div className="vendor-header">
         <img
-          src={`${API}/images/vendors/${vendor.logo}`}
+          src={`${API_BASE_URL}/images/vendors/${vendor.logo}`}
           alt={vendor.name}
           className="vendor-banner-logo"
           onError={(e) => {
             e.target.onerror = null;
-            e.target.src = `${API}/images/fallback-logo.png`;
+            e.target.src = `${API_BASE_URL}/images/fallback-logo.png`;
           }}
         />
         <h2>{vendor.name}</h2>

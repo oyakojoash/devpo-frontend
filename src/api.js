@@ -8,6 +8,9 @@ const API = axios.create({
   withCredentials: true,
 });
 
+// Export base URL for image construction
+export const API_BASE_URL = baseURL;
+
 export default API;
 
   

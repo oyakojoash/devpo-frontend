@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import './ProductDetails.css';
 import { vendors } from '../../data/vendors';
 import { CartContext } from '../../context/CartContext';
-import API from '../../api'; // ✅ Import the centralized API base URL
+import API, { API_BASE_URL } from '../../api'; // Import both
 
 export default function ProductDetails() {
   const { id } = useParams(); // Get product ID from URL
@@ -12,7 +12,7 @@ export default function ProductDetails() {
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
-    fetch(`${API}/api/products/${id}`, {
+    fetch(`${API_BASE_URL}/api/products/${id}`, {
       credentials: 'include', // ✅ Optional: only needed if auth required
     })
       .then(res => res.json())

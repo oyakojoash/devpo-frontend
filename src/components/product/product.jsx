@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import './product.css';
 import { vendors } from '../../data/vendors';
 import { CartContext } from '../../context/CartContext';
-import API from '../../api'; // ✅ centralized base URL
+import API, { API_BASE_URL } from '../../api'; // Import both
 
 export default function Product({ _id, name, price, image, vendorId }) {
   const vendor = vendors.find((v) => v.id === vendorId);
@@ -30,12 +30,12 @@ export default function Product({ _id, name, price, image, vendorId }) {
       }}
     >
       <img
-        src={`${API}/images/${image}`}
+        src={`${API_BASE_URL}/images/${image}`}
         alt={name}
         className="product-image"
         onError={(e) => {
           e.target.onerror = null;
-          e.target.src = `${API}/images/fallback.jpeg`;
+          e.target.src = `${API_BASE_URL}/images/fallback.jpeg`;
         }}
       />
 
@@ -50,12 +50,12 @@ export default function Product({ _id, name, price, image, vendorId }) {
         >
           <div className="vendor-info">
             <img
-              src={`${API}/images/vendors/${vendor.logo}`}
+              src={`${API_BASE_URL}/images/vendors/${vendor.logo}`}
               alt={vendor.name}
               className="vendor-logo"
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = `${API}/images/fallback-logo.png`;
+                e.target.src = `${API_BASE_URL}/images/fallback-logo.png`;
               }}
             />
             <span>{vendor.name}</span>
