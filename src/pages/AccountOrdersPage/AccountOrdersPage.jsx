@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getUserOrders } from '../../services/orderService';
-import { Link } from 'react-router-dom'; // FIX: Import Link
+import { Link } from 'react-router-dom';
+import API from '../../api'; // ✅ Use your Axios instance
 import './AccountOrdersPage.css';
 
 export default function AccountOrdersPage() {
@@ -10,9 +10,11 @@ export default function AccountOrdersPage() {
   useEffect(() => {
     const loadOrders = async () => {
       try {
-        const data = await getUserOrders(); // FIX: use correct function
-        setOrders(data);
+        // ✅ Fetch orders directly from your backend using your API instance
+        const response = await API.get('/api/orders/my-orders');
+        setOrders(response.data); // assuming backend returns an array of orders
       } catch (err) {
+        console.error('Failed to load orders:', err);
         alert('Failed to load orders.');
       } finally {
         setLoading(false);

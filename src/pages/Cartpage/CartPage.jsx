@@ -12,9 +12,7 @@ export default function CartPage() {
 const goToCheckout = () => {
   navigate('/checkout');
 };
-<button onClick={goToCheckout} className="make-order-btn">
-  Make an Order
-</button>
+
 
 
   return (
@@ -24,6 +22,9 @@ const goToCheckout = () => {
         updateQuantity={updateQuantity}
         removeItem={removeItem}
       />
+      <button onClick={goToCheckout} className="make-order-btn">
+  Make an Order
+</button>
     </div>
   );
 }
