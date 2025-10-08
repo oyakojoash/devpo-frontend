@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { CartContext } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
-import API from '../../api'; // ✅ Use your custom API instance
+import { placeOrder } from '../../services/orderService'; // ✅ Import from your orderService
 import './CheckoutPage.css';
 
 export default function CheckoutPage() {
@@ -19,7 +19,7 @@ export default function CheckoutPage() {
   const handlePlaceOrder = async () => {
     if (cartItems.length === 0) return;
 
-    // Prepare order data
+    // ✅ Prepare simplified order data (proof of concept)
     const products = cartItems.map(item => ({
       productId: item._id || item.id,
       quantity: item.quantity,
@@ -28,13 +28,20 @@ export default function CheckoutPage() {
     try {
       setLoading(true);
 
-      // ✅ Send the order to your backend using your API instance
-      await API.post('/api/orders', { products, totalAmount });
+      // ✅ Use your service abstraction instead of direct API call
+      const result = await placeOrder({ products, totalAmount });
 
-      clearCart();
-      navigate('/account/orders');
+      if (result.error) {
+        console.error('❌ Order placement failed:', result.error);
+        alert('Failed to place order.');
+      } else {
+        console.log('✅ Order placed:', result);
+        clearCart();
+        navigate('/account/orders');
+      }
+
     } catch (err) {
-      console.error('Order placement failed:', err);
+      console.error('❌ Order placement error:', err);
       alert('Failed to place order.');
     } finally {
       setLoading(false);
@@ -48,7 +55,8 @@ export default function CheckoutPage() {
       <ul className="checkout-items">
         {cartItems.map(item => (
           <li key={item._id || item.id}>
-            {item.name} x{item.quantity} = ${(item.price * item.quantity).toFixed(2)}
+            {item.name} x{item.quantity} = $
+            {(item.price * item.quantity).toFixed(2)}
           </li>
         ))}
       </ul>
