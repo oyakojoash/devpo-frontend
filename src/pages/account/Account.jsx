@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import './Account.css';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import API from '../../api';
 import { UserContext } from '../../context/UserContext';
 
@@ -152,6 +153,9 @@ export default function Account() {
         <button onClick={handlePasswordUpdate} disabled={loading}>
           {loading ? 'Updating...' : 'Update Password'}
         </button>
+         <Link to="/account/orders" className="orders-button">
+        View My Orders
+       </Link>
       </div>
 
       <button className="logout-btn" onClick={handleLogout}>

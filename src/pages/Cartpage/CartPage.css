@@ -14,3 +14,17 @@
   margin-bottom: 1.5rem;
   color: #333;
 }
+ .make-order-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.make-order-btn:hover {
+  background-color: #218838;
+}

@@ -62,3 +62,16 @@ button {
 button:hover {
   background-color: #c82333;
 }
+ .orders-button {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.orders-button:hover {
+  background-color: #0056b3;
+}
