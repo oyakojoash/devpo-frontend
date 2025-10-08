@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { CartContext } from '../context/CartContext';
+import { CartContext } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import API from '../../api'; // ✅ Use your custom API instance
 import './CheckoutPage.css';
