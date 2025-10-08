@@ -12,6 +12,8 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import VendorPage from './pages/VendorPage/VendorPage';
 import AccountOrdersPage from './pages/AccountOrdersPage/AccountOrdersPage';
 import OrderDetailsPage from './pages/OrderDetailsPage/OrderDetailsPage';
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
+
 
 import { useContext } from 'react';
 import { CartContext } from './context/CartContext';
@@ -45,6 +47,7 @@ function App() {
           path="/cart"
           element={<CartPage />}
         />
+        <Route path="/checkout" element={<CheckoutPage />} /> 
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/vendor/:vendorId" element={<VendorPage />} />
