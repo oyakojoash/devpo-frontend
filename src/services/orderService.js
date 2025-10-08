@@ -1,6 +1,17 @@
 // src/services/orderService.js
 import API from '../api';
 
+// ✅ Place a new order
+export const placeOrder = async (orderData) => {
+  try {
+    const res = await API.post('/api/orders', orderData);
+    return res.data;
+  } catch (err) {
+    console.error('[placeOrder] ❌', err);
+    return { error: 'Failed to place order' };
+  }
+};
+
 // ✅ Fetch a single order by ID
 export const fetchOrderById = async (id) => {
   try {
