@@ -52,7 +52,7 @@ export default function AccountOrdersPage() {
             </Link>
 
             <div className="order-total">
-              <strong>Total:</strong> ${order.totalAmount.toFixed(2)}
+              <strong>Total:</strong> ${order.totalPrice.toFixed(2)}
             </div>
           </div>
         ))}

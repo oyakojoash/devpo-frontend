@@ -56,7 +56,7 @@ export default function OrderDetailsPage() {
         ))}
       </ul>
 
-      <p><strong>Total:</strong> ${order.totalAmount.toFixed(2)}</p>
+      <p><strong>Total:</strong> ${order.totalPrice.toFixed(2)}</p>
 
       {order.status === 'Processing' && (
         <button className="cancel-order-btn" onClick={handleCancel}>
