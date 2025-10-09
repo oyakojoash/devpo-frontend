@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { CartContext } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
-import { placeOrder } from '../../services/orderService'; // ✅ Import from your orderService
+import { placeOrder } from '../../services/orderService';
 import './CheckoutPage.css';
 
 export default function CheckoutPage() {
@@ -9,9 +9,17 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // ✅ Calculate total
-  const totalAmount = cartItems.reduce(
-    (total, item) => total + (item.price ?? 0) * item.quantity,
+  // ✅ Prepare products with correct name and price
+  const products = cartItems.map(item => ({
+    productId: item.productId._id,
+    name: item.productId.name,
+    price: item.productId.price,
+    quantity: item.quantity,
+  }));
+
+  // ✅ Calculate total price
+  const totalPrice = products.reduce(
+    (sum, item) => sum + (item.price ?? 0) * item.quantity,
     0
   );
 
@@ -19,27 +27,10 @@ export default function CheckoutPage() {
   const handlePlaceOrder = async () => {
     if (cartItems.length === 0) return;
 
-    // ✅ Prepare simplified order data (proof of concept)
-    const products = cartItems.map(item => ({
-  productId: item._id || item.id,
-  name: item.name,
-  price: item.price,
-  quantity: item.quantity,
-}));
-
-const totalPrice = cartItems.reduce(
-  (sum, item) => sum + (item.price ?? 0) * item.quantity,
-  0
-);
-
-const result = await placeOrder({ products, totalPrice });
-
-
     try {
       setLoading(true);
 
-      // ✅ Use your service abstraction instead of direct API call
-      const result = await placeOrder({ products, totalAmount });
+      const result = await placeOrder({ products, totalPrice });
 
       if (result.error) {
         console.error('❌ Order placement failed:', result.error);
@@ -50,7 +41,6 @@ const result = await placeOrder({ products, totalPrice });
         navigate('/account/orders');
       }
       console.log('Cart Items:', cartItems);
-
 
     } catch (err) {
       console.error('❌ Order placement error:', err);
@@ -67,13 +57,13 @@ const result = await placeOrder({ products, totalPrice });
       <ul className="checkout-items">
         {cartItems.map(item => (
           <li key={item._id || item.id}>
-            {item.name} x{item.quantity} = $
-            {(item.price * item.quantity).toFixed(2)}
+            {item.productId.name} x{item.quantity} = $
+            {((item.productId.price ?? 0) * item.quantity).toFixed(2)}
           </li>
         ))}
       </ul>
 
-      <h3>Total: ${totalAmount.toFixed(2)}</h3>
+      <h3>Total: ${totalPrice.toFixed(2)}</h3>
 
       <button
         onClick={handlePlaceOrder}
@@ -81,10 +71,6 @@ const result = await placeOrder({ products, totalPrice });
       >
         {loading ? 'Placing Order...' : 'Place Order'}
       </button>
-      
-      <h3>console.log('Cart Items:', cartItems);
-</h3>
-
     </div>
   );
 }
