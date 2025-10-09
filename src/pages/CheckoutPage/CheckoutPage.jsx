@@ -41,6 +41,7 @@ export default function CheckoutPage() {
         navigate('/account/orders');
       }
       console.log('Cart Items:', cartItems);
+       console.log(':totalPrice', totalPrice);
 
     } catch (err) {
       console.error('❌ Order placement error:', err);
