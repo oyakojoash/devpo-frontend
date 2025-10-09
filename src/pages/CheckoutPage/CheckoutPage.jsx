@@ -22,6 +22,10 @@ export default function CheckoutPage() {
     (sum, item) => sum + (item.price ?? 0) * item.quantity,
     0
   );
+  const orderData = {
+  products,      // array of product objects
+  totalPrice,    // total order price
+};
 
   // ✅ Handle place order
   const handlePlaceOrder = async () => {
@@ -29,8 +33,8 @@ export default function CheckoutPage() {
 
     try {
       setLoading(true);
-
-      const result = await placeOrder({ products, totalPrice });
+const result = await placeOrder(orderData);
+      
 
       if (result.error) {
         console.error('❌ Order placement failed:', result.error);
