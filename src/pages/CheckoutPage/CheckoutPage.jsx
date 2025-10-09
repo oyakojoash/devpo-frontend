@@ -21,9 +21,19 @@ export default function CheckoutPage() {
 
     // ✅ Prepare simplified order data (proof of concept)
     const products = cartItems.map(item => ({
-      productId: item._id || item.id,
-      quantity: item.quantity,
-    }));
+  productId: item._id || item.id,
+  name: item.name,
+  price: item.price,
+  quantity: item.quantity,
+}));
+
+const totalPrice = cartItems.reduce(
+  (sum, item) => sum + (item.price ?? 0) * item.quantity,
+  0
+);
+
+const result = await placeOrder({ products, totalPrice });
+
 
     try {
       setLoading(true);
