@@ -24,7 +24,7 @@ export default function CheckoutPage() {
   );
   const orderData = {
   products,      // array of product objects
-  totalPrice,    // total order price
+  totalPrice    // total order price
 };
 
   // ✅ Handle place order
@@ -33,9 +33,8 @@ export default function CheckoutPage() {
 
     try {
       setLoading(true);
-const result = await placeOrder(orderData);
+       const result = await placeOrder(orderData);
       
-
       if (result.error) {
         console.error('❌ Order placement failed:', result.error);
         alert('Failed to place order.');
