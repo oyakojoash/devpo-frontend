@@ -49,6 +49,8 @@ const result = await placeOrder({ products, totalPrice });
         clearCart();
         navigate('/account/orders');
       }
+      console.log('Cart Items:', cartItems);
+
 
     } catch (err) {
       console.error('❌ Order placement error:', err);
@@ -79,6 +81,10 @@ const result = await placeOrder({ products, totalPrice });
       >
         {loading ? 'Placing Order...' : 'Place Order'}
       </button>
+      
+      <h3>console.log('Cart Items:', cartItems);
+</h3>
+
     </div>
   );
 }
