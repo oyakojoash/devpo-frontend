@@ -137,6 +137,12 @@ export const CartProvider = ({ children }) => {
       console.log('[Cart] Item already in cart. Skipping...');
     }
   };
+  // 🧹 Clear the entire cart
+const clearCart = () => {
+  setCartItems([]);
+  console.log('[Cart] 🧹 Cart cleared');
+};
+
 
   return (
     <CartContext.Provider
@@ -147,6 +153,7 @@ export const CartProvider = ({ children }) => {
         removeItem,
         addToCart,
         checkAndAddToCart,
+        clearCart,
       }}
     >
       {children}
