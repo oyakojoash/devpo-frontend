@@ -5,7 +5,7 @@ import { vendors } from '../../data/vendors';
 import { CartContext } from '../../context/CartContext';
 import API, { API_BASE_URL } from '../../api'; // Import both
 
-export default function Product({ _id, name, price, image, vendorId }) {
+export default function Product({ _id, name, price, image, vendorId, details }) {
   const vendor = vendors.find((v) => v.id === vendorId);
   const navigate = useNavigate();
   const { addToCart } = useContext(CartContext);
@@ -41,6 +41,13 @@ export default function Product({ _id, name, price, image, vendorId }) {
 
       <h3 className="product-name">{name}</h3>
       <p className="product-price">${Number(price).toFixed(2)}</p>
+
+      {/* ✅ New: short description */}
+      {details && (
+        <p className="product-details">
+          {details.length > 80 ? details.slice(0, 80) + '…' : details}
+        </p>
+      )}
 
       {vendor && (
         <Link
