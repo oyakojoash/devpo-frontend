@@ -1,3 +1,5 @@
+
+
 import React, { useContext, useState } from 'react';
 import { CartContext } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +11,12 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // ✅ Prepare products with correct name and price
+  // ✅ New state for user info
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+
+  // Prepare products
   const products = cartItems.map(item => ({
     productId: item.productId._id,
     name: item.productId.name,
@@ -17,23 +24,28 @@ export default function CheckoutPage() {
     quantity: item.quantity,
   }));
 
-  // ✅ Calculate total price
+  // Calculate total price
   const totalPrice = products.reduce(
     (sum, item) => sum + (item.price ?? 0) * item.quantity,
     0
   );
-  const orderData = {
-  products,      // array of product objects
-  totalPrice    // total order price
-};
 
-  // ✅ Handle place order
   const handlePlaceOrder = async () => {
+    if (!name) {
+      alert('Name is required');
+      return;
+    }
     if (cartItems.length === 0) return;
+
+    const orderData = {
+      products,
+      totalPrice,
+      userInfo: { name, email, phone }, // ✅ include userInfo
+    };
 
     try {
       setLoading(true);
-       const result = await placeOrder(orderData);
+      const result = await placeOrder(orderData);
       
       if (result.error) {
         console.error('❌ Order placement failed:', result.error);
@@ -43,9 +55,6 @@ export default function CheckoutPage() {
         clearCart();
         navigate('/account/orders');
       }
-      console.log('Cart Items:', cartItems);
-       console.log(':totalPrice', totalPrice);
-
     } catch (err) {
       console.error('❌ Order placement error:', err);
       alert('Failed to place order.');
@@ -57,6 +66,28 @@ export default function CheckoutPage() {
   return (
     <div className="checkout-page">
       <h2>Checkout</h2>
+
+      {/* User Info Form */}
+      <div className="user-info-form">
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={e => setName(e.target.value)}
+        />
+        <input
+          type="email"
+          placeholder="Email (optional)"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
+        <input
+          type="tel"
+          placeholder="Phone (optional)"
+          value={phone}
+          onChange={e => setPhone(e.target.value)}
+        />
+      </div>
 
       <ul className="checkout-items">
         {cartItems.map(item => (
