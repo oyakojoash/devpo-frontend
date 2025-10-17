@@ -71,6 +71,7 @@ export default function ProductsPage({ searchTerm }) {
               name={product.name}
               price={product.price}
               image={product.image}
+              description={product.description}
               vendorId={product.vendorId}
               addToCart={addToCart}
             />

@@ -12,6 +12,3 @@ const API = axios.create({
 export const API_BASE_URL = baseURL;
 
 export default API;
-
-  
-//"C:\Users\hp\Desktop\memo\proto1\frontend\src\api.js"
