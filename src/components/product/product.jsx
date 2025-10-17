@@ -45,7 +45,7 @@ export default function Product({ _id, name, price, image, vendorId, description
       {/* ✅ New: short description */}
       {description && (
         <p className="product-details">
-          {details.length > 80 ? details.slice(0, 80) + '…' : description}
+          {description .length > 80 ? details.slice(0, 80) + '…' : description}
         </p>
       )}
 
