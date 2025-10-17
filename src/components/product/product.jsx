@@ -43,11 +43,12 @@ export default function Product({ _id, name, price, image, vendorId, description
       <p className="product-price">${Number(price).toFixed(2)}</p>
 
       {/* ✅ New: short description */}
-      {description && (
-        <p className="product-details">
-          {description .length > 80 ? details.slice(0, 80) + '…' : description}
-        </p>
-      )}
+     {description && (
+      <p className="product-details">
+    {description.length > 80 ? description.slice(0, 80) + '…' : description}
+      </p>
+       )}
+
 
       {vendor && (
         <Link
