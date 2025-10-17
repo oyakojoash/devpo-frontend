@@ -30,7 +30,7 @@ export default function Product({ _id, name, price, image, vendorId, description
       }}
     >
       <img
-        src={`${API_BASE_URL}/images/${image}`}
+        src={`${API_BASE_URL}/api/images/${image}`}
         alt={name}
         className="product-image"
         onError={(e) => {
