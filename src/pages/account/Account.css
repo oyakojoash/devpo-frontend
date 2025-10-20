@@ -1,15 +1,7 @@
-.logout-btn {
-  margin-left: 10px;
-  background-color: #f44336;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-.logout-btn:hover {
-  background-color: #d32f2f;
-}
+/* ===========================
+   ACCOUNT PAGE BASE STYLES
+=========================== */
+
 .account-container {
   max-width: 800px;
   margin: 40px auto;
@@ -20,36 +12,77 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.account-container h1 {
+.account-container h2 {
   text-align: center;
   color: #333;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 
-.account-section {
-  margin-bottom: 30px;
-  padding: 20px;
-  border-left: 5px solid #007BFF;
+/* ===========================
+   MESSAGE STYLES
+=========================== */
+.error-msg {
+  color: #e74c3c;
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.success-msg {
+  color: #28a745;
+  background: #eafaf1;
+  border: 1px solid #c3e6cb;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* ===========================
+   BOXES AND FIELDS
+=========================== */
+.account-box {
   background-color: #f9f9f9;
+  border-left: 5px solid #007bff;
   border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 25px;
 }
 
-.account-section h2 {
-  color: #007BFF;
-  margin-bottom: 10px;
-}
-
-.account-section p {
-  margin: 8px 0;
+.account-box label {
+  display: block;
   color: #444;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.account-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
   font-size: 15px;
 }
 
+.account-box input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
 button {
-  display: block;
-  margin: 0 auto;
-  padding: 12px 28px;
-  font-size: 16px;
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 15px;
   font-weight: 600;
   color: white;
   background-color: #dc3545;
@@ -62,7 +95,25 @@ button {
 button:hover {
   background-color: #c82333;
 }
- .orders-button {
+
+.account-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.account-actions button:first-child {
+  background-color: #007bff;
+}
+
+.account-actions button:first-child:hover {
+  background-color: #0056b3;
+}
+
+/* ===========================
+   LINKS & LOGOUT
+=========================== */
+.orders-button {
   display: inline-block;
   background-color: #007bff;
   color: white;
@@ -70,8 +121,44 @@ button:hover {
   border-radius: 8px;
   text-decoration: none;
   transition: background 0.3s ease;
+  margin-top: 10px;
 }
 
 .orders-button:hover {
   background-color: #0056b3;
+}
+
+.logout-btn {
+  width: 100%;
+  background-color: #f44336;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 15px;
+}
+
+.logout-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* ===========================
+   RESPONSIVE GRID (Phones/Tablets)
+=========================== */
+@media (max-width: 768px) {
+  .account-container {
+    padding: 20px;
+  }
+
+  .account-actions {
+    flex-direction: column;
+  }
+
+  .orders-button,
+  .logout-btn {
+    width: 100%;
+    text-align: center;
+  }
 }

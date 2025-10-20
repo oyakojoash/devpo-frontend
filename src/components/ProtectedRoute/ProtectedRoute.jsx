@@ -9,7 +9,7 @@ export default function ProtectedRoute({ children }) {
   useEffect(() => {
     API.get('/api/auth/me', { withCredentials: true })
       .then((res) => {
-        console.log("✅ Auth success:", res.data);
+        console.log("✅ Auth success");
         setAuth(true);
       })
       .catch((err) => {

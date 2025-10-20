@@ -1,31 +1,79 @@
 .order-details-page {
   max-width: 700px;
-  margin: auto;
-  padding: 1rem;
+  margin: 30px auto;
+  padding: 25px;
   background: #fff;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.order-details-page h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.order-details-page p {
+  margin: 6px 0;
+  color: #555;
+  font-size: 0.95rem;
 }
 
 .order-products {
   list-style: none;
   padding: 0;
+  margin: 15px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 }
 
 .order-products li {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 10px;
+  padding: 12px 0;
   border-bottom: 1px solid #eee;
-  padding: 10px 0;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.order-products li:last-child {
+  border-bottom: none;
+}
+
+/* Responsive grid for small screens */
+@media (max-width: 600px) {
+  .order-products li {
+    grid-template-columns: 1fr;
+    gap: 5px;
+    padding: 10px 0;
+  }
+
+  .order-products li div {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.order-products li div {
+  padding: 2px 0;
 }
 
 .cancel-order-btn {
   margin-top: 20px;
-  padding: 10px 16px;
+  padding: 12px 20px;
   background-color: crimson;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.cancel-order-btn:hover {
+  background-color: darkred;
 }

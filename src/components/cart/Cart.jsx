@@ -50,7 +50,7 @@ export default function Cart({ cartItems, updateQuantity, removeItem }) {
                   />
                   <div>
                     <h4 className="cart-item-name">{product.name}</h4>
-                    <p className="cart-item-price">${formatPrice(product.price)}</p>
+                    <p className="cart-item-price">ksh{formatPrice(product.price)}</p>
                   </div>
                 </div>
 
@@ -87,7 +87,7 @@ export default function Cart({ cartItems, updateQuantity, removeItem }) {
             );
           })}
 
-          <div className="cart-total">Total: ${getTotal()}</div>
+          <div className="cart-total">Total: ksh{getTotal()}</div>
         </div>
       )}
     </div>

@@ -98,7 +98,7 @@ export default function CheckoutPage() {
         ))}
       </ul>
 
-      <h3>Total: ${totalPrice.toFixed(2)}</h3>
+      <h3>Total: ksh{totalPrice.toFixed(2)}</h3>
 
       <button
         onClick={handlePlaceOrder}

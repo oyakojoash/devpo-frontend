@@ -50,13 +50,13 @@ export default function OrderDetailsPage() {
           <li key={i}>
             <div>{p.productId?.name ?? 'Unknown Product'}</div>
             <div>Qty: {p.quantity}</div>
-            <div>Price: ${p.productId?.price?.toFixed(2)}</div>
+            <div>Price: ksh{p.productId?.price?.toFixed(2)}</div>
             <div>Subtotal: ${(p.quantity * (p.productId?.price ?? 0)).toFixed(2)}</div>
           </li>
         ))}
       </ul>
 
-      <p><strong>Total:</strong> ${order.totalPrice.toFixed(2)}</p>
+      <p><strong>Total:</strong> ksh{order.totalPrice.toFixed(2)}</p>
 
       {order.status === 'Processing' && (
         <button className="cancel-order-btn" onClick={handleCancel}>
