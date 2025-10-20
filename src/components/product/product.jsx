@@ -40,7 +40,7 @@ export default function Product({ _id, name, price, image, vendorId, description
       />
 
       <h3 className="product-name">{name}</h3>
-      <p className="product-price">${Number(price).toFixed(2)}</p>
+      <p className="product-price">ksh{Number(price).toFixed(2)}</p>
 
       {/* ✅ New: short description */}
      {description && (
