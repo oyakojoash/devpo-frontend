@@ -161,6 +161,8 @@ export default function Account() {
       <button className="logout-btn" onClick={handleLogout}>
         Logout
       </button>
+
+      <h2>For any inquiries, please contact this email: <a href="mailto:dvepo1041@gmail.com">dvepo1041@gmail.com</a></h2>
     </div>
   );
 }

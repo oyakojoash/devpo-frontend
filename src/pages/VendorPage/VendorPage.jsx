@@ -50,7 +50,7 @@ export default function VendorPage() {
     <div>
       <div className="vendor-header">
         <img
-          src={`${API_BASE_URL}/images/vendors/${vendor.logo}`}
+          src={`${API_BASE_URL}/api/images/${vendor.logo}`}
           alt={vendor.name}
           className="vendor-banner-logo"
           onError={(e) => {
