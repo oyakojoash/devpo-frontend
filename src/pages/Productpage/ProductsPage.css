@@ -18,14 +18,14 @@
 /* Tablets (<= 1024px) */
 @media (max-width: 1024px) {
   .product-list {
-    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    grid-template-columns: repeat(4, 1fr); /* 3 columns */
   }
 }
 
 /* Small tablets / large phones (<= 768px) */
 @media (max-width: 768px) {
   .product-list {
-    grid-template-columns: repeat(3, 1fr); /* still 3 columns */
+    grid-template-columns: repeat(4, 2fr); /* still 3 columns */
     gap: 1.5rem; /* slightly smaller gap */
   }
 }
@@ -33,7 +33,7 @@
 /* Small Phones (<= 480px) */
 @media (max-width: 480px) {
   .product-list {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-template-columns: repeat(3, 2fr); /* 2 columns */
     gap: 1rem;
   }
 }
@@ -41,7 +41,7 @@
 /* Extra Small Phones (<= 400px) */
 @media (max-width: 400px) {
   .product-list {
-    grid-template-columns: 1fr; /* 1 column */
+    grid-template-columns: 2fr; /* 1 column */
     gap: 1rem;
   }
 }
