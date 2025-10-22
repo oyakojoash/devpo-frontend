@@ -41,7 +41,7 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
       </div>
 
       <ul className={`navbar-links ${menuOpen ? 'active' : ''}`}>
-        <li><Link to="/products">Products</Link></li>
+        <li><Link to="/products">shop</Link></li>
 
         <li
           className="cart-link"
