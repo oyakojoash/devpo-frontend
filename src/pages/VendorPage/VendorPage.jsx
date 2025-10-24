@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Product from '../../components/product/product';
 import './VendorPage.css';
-import API, { API_BASE_URL } from '../../api'; // Import both
+import API, { API_BASE_URL } from '../../api/api' // Import both
 
 export default function VendorPage() {
   const { vendorId } = useParams();

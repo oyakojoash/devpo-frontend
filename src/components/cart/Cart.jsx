@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./Cart.css";
-import API, { API_BASE_URL } from "../../api"; // Import both
+import API, { API_BASE_URL } from '../../api/api'
 
 /* --- Utility Helpers --- */
 function safeNumber(value, fallback = 0) {

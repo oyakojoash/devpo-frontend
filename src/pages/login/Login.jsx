@@ -2,7 +2,7 @@
 import React, { useState, useContext } from 'react';
 import './Login.css';
 import { useNavigate, Link } from 'react-router-dom';
-import API from '../../api';
+import API from '../../api/api'
 import { UserContext } from '../../context/UserContext';
 
 export default function Login() {

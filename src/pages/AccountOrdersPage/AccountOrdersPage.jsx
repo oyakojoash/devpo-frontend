@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import API from '../../api'; // ✅ Use your Axios instance
+import API from '../../api/api' // ✅ Use your Axios instance
 import './AccountOrdersPage.css';
 
 export default function AccountOrdersPage() {

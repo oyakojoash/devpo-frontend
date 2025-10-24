@@ -1,5 +1,5 @@
 // src/services/orderService.js
-import API from '../api';
+import API from '../api/api';
 
 // ✅ Place a new order
 export const placeOrder = async (orderData) => {

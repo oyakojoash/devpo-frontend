@@ -4,7 +4,7 @@ import './Navbar.css';
 import SearchBar from '../search/SearchBar';
 import { CartContext } from '../../context/CartContext';
 import { UserContext } from '../../context/UserContext';
-import API from '../../api';
+import API from '../../api/api'
 
 export default function Navbar({ searchTerm, setSearchTerm }) {
   const { cartItems } = useContext(CartContext);

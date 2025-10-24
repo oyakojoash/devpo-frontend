@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import API from '../../api'; // ✅ Axios instance with baseURL
+import API from '../../api/api' // ✅ Axios instance with baseURL
 import './ForgotPassword.css';
 export default function ForgotPassword() {
   const [step, setStep] = useState(1);

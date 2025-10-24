@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import './Account.css';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import API from '../../api';
+import API from '../../api/api'
 import { UserContext } from '../../context/UserContext';
 
 export default function Account() {

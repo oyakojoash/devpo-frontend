@@ -1,5 +1,5 @@
 // src/services/cartService.js
-import API from '../api';
+import API from '../api/api';
 
 // Helper to handle API errors consistently
 const handleError = (err, action) => {

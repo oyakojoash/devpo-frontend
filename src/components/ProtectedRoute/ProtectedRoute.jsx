@@ -1,7 +1,7 @@
 // src/components/ProtectedRoute/ProtectedRoute.jsx
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import API from '../../api';
+import API from '../../api/api'
 
 export default function ProtectedRoute({ children }) {
   const [auth, setAuth] = useState(null);
