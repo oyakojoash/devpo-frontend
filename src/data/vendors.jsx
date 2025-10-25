@@ -1,20 +1,19 @@
 export const vendors = [
+  
   {
     id: 'vendor1',
-    name: 'TechWorld',
-    logo: '/images/vendors/techworld-logo.png',
-    description: 'Affordable tech gadgets and accessories.',
+    name: 'Berry luxe bags',
+    logo: "berrylogo.jpeg", // ✅ match actual image
+    description: 'for more infor reached out to me on 0743674725',
+
   },
   {
     id: 'vendor2',
-    name: 'GadgetHub',
-    logo: '/images/vendors/gadgethub-logo.png',
-    description: 'Premium gaming and office gear.',
+    name: 'samstech',
+    logo: "sam logo.jpeg", // ✅ match actual image
+    description: 'Affordable tech gadgets for more infor reached out to me on 0764306612',
+    
   },
-  {
-    id: 'vendor3',
-    name: 'ProGear',
-    logo: '/images/vendors/progear-logo.png',
-    description: 'Professional office and productivity equipment.',
-  },
+ 
 ];
+
