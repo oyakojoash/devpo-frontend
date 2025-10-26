@@ -8,11 +8,13 @@
   background-color: #1e1e2f;
   color: #ffffff;
   padding: 1rem 2rem;
+  width: 95%;
   font-family: 'Segoe UI', sans-serif;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
+  border-radius: 0 0 1rem 1rem; /* bottom corners curved */
 }
 
 /* ===============================
@@ -143,7 +145,7 @@
 /* ===============================
    MOBILE MENU TOGGLE
 =============================== */
-.menu-toggle {
+/*.menu-toggle {
   display: none;
   font-size: 1.8rem;
   background: none;
@@ -155,7 +157,7 @@
 
 .menu-toggle:hover {
   transform: rotate(90deg);
-}
+}*/
 
 /* ===============================
    TABLET & MOBILE RESPONSIVENESS

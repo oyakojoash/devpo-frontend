@@ -5,6 +5,9 @@ import SearchBar from '../search/SearchBar';
 import { CartContext } from '../../context/CartContext';
 import { UserContext } from '../../context/UserContext';
 import API from '../../api/api'
+import { FaUser } from 'react-icons/fa';
+import {  FaStore } from 'react-icons/fa';
+
 
 export default function Navbar({ searchTerm, setSearchTerm }) {
   const { cartItems } = useContext(CartContext);
@@ -32,16 +35,16 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
     <nav className="navbar">
       <div className="navbar-left">
         <Link to="/" className="nav-logo-link">🛍️ MyShop</Link>
-        <button
+        {/* <button
           className="menu-toggle"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           ☰
-        </button>
+        </button> */}
       </div>
 
       <ul className={`navbar-links ${menuOpen ? 'active' : ''}`}>
-        <li><Link to="/products">shop</Link></li>
+        <li><Link to="/products"> <FaStore style={{ marginRight: '5px' }} />shop</Link></li>
 
         <li
           className="cart-link"
@@ -79,7 +82,9 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
                 <span>Hi, {user.fullName?.split(' ')[0]}</span>
               )}
             </li>
-            <li><Link to="/account">Account</Link></li>
+            <li><Link to="/account">
+              <FaUser style={{ marginRight: '5px' }} /> Account
+              </Link></li>
             <li>
               <button onClick={logout} className="logout-btn">Logout</button>
             </li>
