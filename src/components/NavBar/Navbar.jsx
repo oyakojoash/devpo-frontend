@@ -35,12 +35,12 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
     <nav className="navbar">
       <div className="navbar-left">
         <Link to="/" className="nav-logo-link">🛍️ MyShop</Link>
-        {/* <button
+         <button
           className="menu-toggle"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           ☰
-        </button> */}
+        </button> 
       </div>
 
       <ul className={`navbar-links ${menuOpen ? 'active' : ''}`}>

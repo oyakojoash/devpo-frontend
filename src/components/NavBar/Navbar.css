@@ -15,21 +15,7 @@
   top: 0;
   z-index: 1000;
   border-radius: 0 0 1rem 1rem; /* bottom corners curved */
-}
-
-/* ===============================
-   LOGO
-=============================== */
-.navbar-logo .nav-logo-link {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #ffffff;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.navbar-logo .nav-logo-link:hover {
-  color: #00bcd4;
+  transition: all 0.3s ease;
 }
 
 /* ===============================
@@ -145,7 +131,7 @@
 /* ===============================
    MOBILE MENU TOGGLE
 =============================== */
-/*.menu-toggle {
+.menu-toggle {
   display: none;
   font-size: 1.8rem;
   background: none;
@@ -157,7 +143,7 @@
 
 .menu-toggle:hover {
   transform: rotate(90deg);
-}*/
+}
 
 /* ===============================
    TABLET & MOBILE RESPONSIVENESS
@@ -182,6 +168,7 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 1rem;
+    border-radius: 0 0 1rem 1rem; /* keep bottom curve on mobile */
   }
 
   .menu-toggle {
@@ -190,6 +177,7 @@
     margin-bottom: 10px;
   }
 
+  /* Full-width dropdown like desktop but stacked */
   .navbar-links {
     display: none;
     flex-direction: column;
@@ -197,6 +185,7 @@
     background-color: #1e1e2f;
     border-top: 1px solid #333;
     padding: 1rem 0;
+    border-radius: 0 0 1rem 1rem; /* keep bottom curve when open */
   }
 
   .navbar-links.active {
