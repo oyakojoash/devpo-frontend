@@ -142,3 +142,91 @@
     font-size: 1.3rem;
   }
 }
+
+/* -----------------------------
+   Center section for SearchBar
+----------------------------- */
+.navbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+}
+
+/* ✅ White input field inside navbar */
+.navbar-center input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd; /* light border */
+  outline: none;
+  font-size: 0.95rem;
+  background-color: #ffffff; /* ✅ white inside */
+  color: #1e293b; /* dark text for contrast */
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* ✅ Focus state for accessibility */
+.navbar-center input:focus {
+  border-color: #3b82f6; /* blue-500 */
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+/* ✅ Placeholder color */
+.navbar-center input::placeholder {
+  color: #94a3b8; /* slate-400 */
+}
+
+/* -----------------------------
+   Navbar layout adjustments
+----------------------------- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: #ffffff; /* ✅ white navbar background */
+  color: #1e293b;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding: 1rem 2rem;
+  border-radius: 0 0 1rem 1rem;
+  transition: all 0.3s ease;
+}
+
+/* Navbar links */
+.navbar-links li a {
+  color: #1e293b; /* dark text for light background */
+}
+.navbar-links li a:hover {
+  color: #3b82f6;
+}
+
+/* -----------------------------
+   Responsive (mobile)
+----------------------------- */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.8rem 1rem;
+  }
+
+  .navbar-center {
+    order: 3;
+    width: 100%;
+    max-width: 90%;
+    margin: 0.5rem auto;
+  }
+
+  .navbar-center input {
+    width: 100%;
+  }
+
+  .navbar-links {
+    order: 2;
+    background-color: #ffffff; /* ✅ keep menu white */
+    border-top: 1px solid #e5e7eb; /* light divider */
+  }
+}

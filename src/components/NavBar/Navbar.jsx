@@ -42,6 +42,9 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
           ☰
         </button> 
       </div>
+      <div className="navbar-center">
+    <SearchBar value={searchTerm} onChange={setSearchTerm} />
+     </div>
 
       <ul className={`navbar-links ${menuOpen ? 'active' : ''}`}>
         <li><Link to="/products"> <FaStore style={{ marginRight: '5px' }} />shop</Link></li>
@@ -93,10 +96,8 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
           <li><Link to="/login">Login</Link></li>
         )}
 
-        <li>
-          <SearchBar value={searchTerm} onChange={setSearchTerm} />
-        </li>
+       
       </ul>
     </nav>
   );
-}
+} 
