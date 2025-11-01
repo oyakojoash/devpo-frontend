@@ -32,6 +32,7 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
+    <div className="container"> 
     <nav className="navbar">
       <div className="navbar-left">
         <Link to="/" className="nav-logo-link">🛍️ MyShop</Link>
@@ -99,5 +100,6 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
        
       </ul>
     </nav>
+    </div>
   );
 } 
