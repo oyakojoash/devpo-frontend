@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import "./index.css"; 
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/NavBar/Navbar';
 import ProductsPage from './pages/Productpage/ProductsPage';
@@ -23,7 +24,9 @@ function App() {
   const { cartItems } = useContext(CartContext); // ✅ Get from context
 
   return (
-    <>
+    <div class ="container">
+    < >
+
       <Navbar
         cartItemCount={cartItems.length}
         searchTerm={searchTerm}
@@ -63,6 +66,7 @@ function App() {
         <Route path="/account/orders/:orderId" element={<OrderDetailsPage />} />
       </Routes>
     </>
+    </div>
   );
 }
 
