@@ -7,17 +7,22 @@ export default function ProtectedRoute({ children }) {
   const [auth, setAuth] = useState(null);
 
   useEffect(() => {
-    API.get('/api/auth/me', { withCredentials: true })
-      .then((res) => {
+    const checkAuth = async () => {
+      try {
+        await API.get('/api/auth/me', { withCredentials: true });
         console.log("✅ Auth success");
         setAuth(true);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.warn("❌ Auth failed:", err.response?.data || err.message);
         setAuth(false);
-      });
+      }
+    };
+    checkAuth();
   }, []);
 
-  if (auth === null) return <div>Checking authentication...</div>;
-  return auth ? children : <Navigate to="/login" />;
+  if (auth === null) {
+    return <div className="auth-loading">Checking authentication...</div>;
+  }
+
+  return auth ? children : <Navigate to="/login" replace />;
 }
