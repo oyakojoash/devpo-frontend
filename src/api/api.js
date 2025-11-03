@@ -1,7 +1,10 @@
 import axios from 'axios';
 
-const baseURL = process.env.REACT_APP_API_BASE_URL || 'https://devpo-backend-production.up.railway.app';
-console.log("🌍 Axios Base URL:", baseURL);
+const baseURL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:5000" // Local backend
+    : "https://devpo-backend-production.up.railway.app"; // Production backend
+
 
 const API = axios.create({
   baseURL,
