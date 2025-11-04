@@ -60,7 +60,7 @@ export default function ProductDetails() {
       <div className="product-details-info">
         <h2>{product.name}</h2>
         <p className="product-details-price">ksh{Number(product.price).toFixed(2)}</p>
-         <p className="product-details-price">{(product.description)}</p>
+         <p className="product-details-price">{product.description}</p>
 
 
         {vendor && (
