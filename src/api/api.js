@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const baseURL =
   window.location.hostname === "localhost"
-    ? "http://localhost:5000" // Local backend
-    : "https://devpo-backend-production.up.railway.app"; // Production backend
+    ? "http://localhost:5000"           // LOCAL SERVER
+    : "https://devpo-backend-production.up.railway.app";  // PRODUCTION SERVER
 
 
 const API = axios.create({

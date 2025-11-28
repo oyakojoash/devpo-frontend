@@ -1,22 +1,24 @@
-// src/api/productApi.js
 import axios from "axios";
 
+// Choose backend depending on environment
 export const PRODUCT_API_BASE_URL =
-  process.env.REACT_APP_PRODUCT_API_BASE_URL || "http://localhost:10002";
+  window.location.hostname === "localhost"
+    ? "http://localhost:10002"       // LOCAL SERVER
+    : "https://devpo-backend-production.up.railway.app"; // PRODUCTION SERVER
 
 console.log("🌍 Product API Base URL:", PRODUCT_API_BASE_URL);
 
 const ProductAPI = axios.create({
   baseURL: PRODUCT_API_BASE_URL,
-  withCredentials: true, // needed for HTTP-only cookie auth
-  timeout: 10000,        // 10s timeout
+  withCredentials: true,
+  timeout: 10000,
 });
 
-// Optional: interceptors for logging
+// Optional logging interceptors
 ProductAPI.interceptors.request.use(
   (config) => {
     console.log("[ProductAPI] Request:", config.method.toUpperCase(), config.url);
-    return config; 
+    return config;
   },
   (error) => Promise.reject(error)
 );
