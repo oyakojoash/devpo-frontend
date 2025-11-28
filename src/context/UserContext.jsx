@@ -11,7 +11,6 @@ export default function UserProvider({ children }) {
   useEffect(() => {
     API.get('/api/auth/me', { withCredentials: true })
       .then((res) => {
-        console.log("👤 UserContext loaded:", res.data);
         setUser(res.data);
       })
       .catch((err) => {

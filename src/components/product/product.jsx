@@ -3,8 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import './product.css';
 import { vendors } from '../../data/vendors';
 import { CartContext } from '../../context/CartContext';
-import API, { API_BASE_URL } from '../../api/api';
-import ProductAPI, { PRODUCT_API_BASE_URL } from '../../api/productApi';
+import  { API_BASE_URL } from '../../api/api';
+import  { PRODUCT_API_BASE_URL } from '../../api/productApi';
 
 export default function Product({ _id, name, price, image, vendorId, description }) {
   const vendor = vendors.find((v) => v.id === vendorId);
