@@ -4,7 +4,7 @@ import axios from "axios";
 export const PRODUCT_API_BASE_URL =
   window.location.hostname === "localhost"
     ? "http://localhost:10002"       // LOCAL SERVER
-    : "https://devpo-backend-production.up.railway.app"; // PRODUCTION SERVER
+    : //"https://devpo-backend-production.up.railway.app"; // PRODUCTION SERVER
 
 console.log("🌍 Product API Base URL:", PRODUCT_API_BASE_URL);
 
