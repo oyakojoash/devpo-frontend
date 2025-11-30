@@ -1,10 +1,8 @@
 import axios from "axios";
 
 // Choose backend depending on environment
-export const PRODUCT_API_BASE_URL =
-  window.location.hostname === "localhost"
-    ? "http://localhost:10002"       // LOCAL SERVER
-    : "https://devpo-backend-production.up.railway.app"; // PRODUCTION SERVER
+export const PRODUCT_API_BASE_URL ="http://localhost:10002"       // LOCAL SERVER
+    
 
 console.log("🌍 Product API Base URL:", PRODUCT_API_BASE_URL);
 
